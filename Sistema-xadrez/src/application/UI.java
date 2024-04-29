@@ -1,6 +1,10 @@
 package application;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import chess.ChessPiece;
+import chess.ChessPosition;
 import chess.Color;
 
 public class UI {
@@ -28,6 +32,23 @@ public class UI {
 
     // Methods
 
+    //read chess position
+
+    public static ChessPosition readChessPosition(Scanner sc){
+        try{
+            String s = sc.nextLine();
+            char column = s.charAt(0);
+            int row = Integer.parseInt(s.substring(1));
+            return new ChessPosition(column, row);
+        }
+        catch (RuntimeException e ){
+            throw new InputMismatchException("Erro lendo posição de Xadrez. Valores validos são de a1 até h8.");
+        }
+
+    }
+
+    // Print in the board
+
     public static void printBoard(ChessPiece[][] pieces){
 
         for (int i = 0 ; i< pieces.length; i++){
@@ -46,6 +67,8 @@ public class UI {
         System.out.println("  a b c d e f g h");
 
     }
+
+    // Print piece
 
     private static void printPiece(ChessPiece piece) {
     	if (piece == null) {
